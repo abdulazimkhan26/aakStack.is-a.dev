@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Abdul Azim Khan — Data Scientist & Software Developer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['Syne', 'sans-serif'],
+        body: ['Space Grotesk', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      colors: {
+        purple: {
+          950: '#0d0010',
+          900: '#160020',
+          800: '#220033',
+          700: '#3d0066',
+          600: '#6600aa',
+          500: '#8800dd',
+          400: '#aa33ff',
+          300: '#cc66ff',
+          200: '#dd99ff',
+          100: '#f0ccff',
+        },
+        violet: {
+          glow: '#b44fff',
+          bright: '#d580ff',
+          soft: '#e6b3ff',
+        }
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'float-delay': 'float 6s ease-in-out 2s infinite',
+        'float-delay2': 'float 6s ease-in-out 4s infinite',
+        'pulse-slow': 'pulse 4s ease-in-out infinite',
+        'spin-slow': 'spin 20s linear infinite',
+        'scan': 'scan 3s linear infinite',
+        'fadeInUp': 'fadeInUp 0.8s ease forwards',
+        'shimmer': 'shimmer 2.5s linear infinite',
+        'glow-pulse': 'glowPulse 2s ease-in-out infinite',
+      },
+      keyframes: {
+        float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-20px)' } },
+        scan: { '0%': { transform: 'translateY(-100%)' }, '100%': { transform: 'translateY(100vh)' } },
+        fadeInUp: { 'from': { opacity: '0', transform: 'translateY(40px)' }, 'to': { opacity: '1', transform: 'translateY(0)' } },
+        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+        glowPulse: { '0%,100%': { boxShadow: '0 0 20px #8800dd44, 0 0 40px #8800dd22' }, '50%': { boxShadow: '0 0 40px #8800ddaa, 0 0 80px #8800dd55' } },
+      }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#0d0010;color:#f0e6ff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#160020;}
+::-webkit-scrollbar-thumb{background:linear-gradient(#6600aa,#aa33ff);border-radius:3px;}
+
+/* Grid bg */
+.grid-bg{
+  background-image:
+    linear-gradient(rgba(170,51,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(170,51,255,0.06) 1px, transparent 1px);
+  background-size:50px 50px;
+}
+
+/* Noise texture overlay */
+.noise::before{
+  content:'';position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:0.4;
+}
+
+/* Glowing orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+
+/* Neon border */
+.neon-border{border:1px solid rgba(170,51,255,0.3);box-shadow:0 0 20px rgba(136,0,221,0.2),inset 0 0 20px rgba(136,0,221,0.05);}
+.neon-border:hover{border-color:rgba(170,51,255,0.7);box-shadow:0 0 30px rgba(136,0,221,0.5),inset 0 0 30px rgba(136,0,221,0.1);}
+
+/* Shimmer text */
+.shimmer-text{
+  background:linear-gradient(90deg,#aa33ff,#ffffff,#dd99ff,#aa33ff);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 3s linear infinite;
+}
+
+/* Glow text */
+.glow-text{text-shadow:0 0 30px rgba(170,51,255,0.8),0 0 60px rgba(136,0,221,0.4);}
+
+/* Card hover */
+.card-hover{transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);}
+.card-hover:hover{transform:translateY(-8px);}
+
+/* Tag */
+.tag{
+  background:rgba(136,0,221,0.15);
+  border:1px solid rgba(170,51,255,0.3);
+  color:#dd99ff;
+  padding:3px 12px;border-radius:99px;font-size:12px;font-family:'JetBrains Mono',monospace;
+  transition:all 0.2s;
+}
+.tag:hover{background:rgba(136,0,221,0.35);border-color:#aa33ff;color:#fff;}
+
+/* Skill bar */
+.skill-fill{
+  height:100%;border-radius:99px;
+  background:linear-gradient(90deg,#6600aa,#aa33ff,#dd99ff);
+  position:relative;overflow:hidden;
+  transition:width 1.5s cubic-bezier(0.4,0,0.2,1);
+}
+.skill-fill::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  animation:shimmer 2s linear infinite;
+}
+
+/* Nav */
+nav{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+
+/* Section reveal */
+.reveal{opacity:0;transform:translateY(50px);transition:all 0.8s cubic-bezier(0.4,0,0.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* Cursor glow */
+.cursor-glow{
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(136,0,221,0.12),transparent 70%);
+  position:fixed;pointer-events:none;z-index:1;
+  transform:translate(-50%,-50%);transition:transform 0.1s;
+}
+
+/* Timeline dot */
+.timeline-dot{
+  width:14px;height:14px;border-radius:50%;
+  background:linear-gradient(135deg,#8800dd,#aa33ff);
+  box-shadow:0 0 15px rgba(170,51,255,0.8);
+  flex-shrink:0;margin-top:6px;
+}
+
+/* Typing cursor */
+.cursor-blink{animation:blink 1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* Floating particles */
+.particle{position:absolute;border-radius:50%;pointer-events:none;animation:float var(--dur,6s) ease-in-out var(--delay,0s) infinite;}
+
+/* Button */
+.btn-primary{
+  background:linear-gradient(135deg,#6600aa,#aa33ff);
+  border:none;color:#fff;padding:14px 32px;border-radius:8px;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:all 0.3s;
+  box-shadow:0 0 30px rgba(136,0,221,0.4);
+}
+.btn-primary::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+  transition:left 0.5s;
+}
+.btn-primary:hover::before{left:100%;}
+.btn-primary:hover{box-shadow:0 0 50px rgba(136,0,221,0.7);transform:translateY(-2px);}
+
+.btn-outline{
+  background:transparent;border:1px solid rgba(170,51,255,0.5);
+  color:#dd99ff;padding:14px 32px;border-radius:8px;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;
+  cursor:pointer;transition:all 0.3s;
+}
+.btn-outline:hover{border-color:#aa33ff;background:rgba(136,0,221,0.15);color:#fff;box-shadow:0 0 20px rgba(136,0,221,0.3);}
+
+/* Active nav */
+.nav-link{position:relative;color:#dd99ff;transition:color 0.3s;}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:linear-gradient(90deg,#8800dd,#aa33ff);transition:width 0.3s;border-radius:2px;}
+.nav-link:hover{color:#fff;}
+.nav-link:hover::after,.nav-link.active::after{width:100%;}
+.nav-link.active{color:#fff;}
+
+/* Project card gradient border */
+.project-card{
+  background:rgba(22,0,32,0.8);
+  border:1px solid rgba(170,51,255,0.2);
+  border-radius:16px;
+  transition:all 0.4s;
+  position:relative;overflow:hidden;
+}
+.project-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#8800dd,#aa33ff,transparent);
+  opacity:0;transition:opacity 0.4s;
+}
+.project-card:hover{border-color:rgba(170,51,255,0.5);box-shadow:0 20px 60px rgba(136,0,221,0.25);transform:translateY(-6px);}
+.project-card:hover::before{opacity:1;}
+
+/* Contact input */
+.contact-input{
+  background:rgba(22,0,32,0.8);border:1px solid rgba(170,51,255,0.25);
+  color:#f0e6ff;padding:12px 16px;border-radius:8px;width:100%;
+  font-family:'Space Grotesk',sans-serif;font-size:15px;
+  transition:all 0.3s;outline:none;
+}
+.contact-input:focus{border-color:rgba(170,51,255,0.7);box-shadow:0 0 20px rgba(136,0,221,0.2);}
+.contact-input::placeholder{color:rgba(221,153,255,0.4);}
+
+/* Stats */
+.stat-card{
+  background:rgba(136,0,221,0.08);
+  border:1px solid rgba(170,51,255,0.2);
+  border-radius:12px;padding:24px;text-align:center;
+  transition:all 0.3s;
+}
+.stat-card:hover{background:rgba(136,0,221,0.15);border-color:rgba(170,51,255,0.4);}
+</style>
+</head>
+<body class="noise grid-bg">
+
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Floating particles -->
+<div id="particles" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;"></div>
+
+<!-- Background orbs -->
+<div style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;">
+  <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(136,0,221,0.25),transparent 70%);top:-200px;left:-200px;animation:float 8s ease-in-out infinite;"></div>
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(170,51,255,0.15),transparent 70%);bottom:-100px;right:-100px;animation:float 10s ease-in-out 3s infinite;"></div>
+  <div class="orb" style="width:300px;height:300px;background:radial-gradient(circle,rgba(100,0,180,0.2),transparent 70%);top:50%;left:50%;animation:float 7s ease-in-out 1.5s infinite;"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 px-6 py-4" style="background:rgba(13,0,16,0.85);border-bottom:1px solid rgba(170,51,255,0.15);">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-3">
+      <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:#fff;">abdulazimkhan<span style="color:#aa33ff;">.dev</span></span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about" class="nav-link text-sm font-medium">About</a>
+      <a href="#skills" class="nav-link text-sm font-medium">Skills</a>
+      <a href="#projects" class="nav-link text-sm font-medium">Projects</a>
+      <a href="#experience" class="nav-link text-sm font-medium">Experience</a>
+      <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
+    </div>
+    <a href="https://github.com/abdulazimkhan26" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:13px;">
+      <span>GitHub ↗</span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="relative min-h-screen flex items-center justify-center pt-20" style="z-index:1;">
+  <div class="max-w-6xl mx-auto px-6 w-full">
+    <div class="grid lg:grid-cols-2 gap-16 items-center min-h-screen py-20">
+      <!-- Left -->
+      <div style="animation:fadeInUp 0.8s ease forwards;">
+        <div class="flex items-center gap-3 mb-6">
+          <div style="width:8px;height:8px;border-radius:50%;background:#44ff88;box-shadow:0 0 10px #44ff88;animation:pulse 2s infinite;"></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#aa33ff;">Available for hire</span>
+        </div>
+
+        <h1 style="font-family:'Syne',sans-serif;font-size:clamp(42px,6vw,76px);font-weight:800;line-height:1.05;margin-bottom:16px;">
+          <span style="color:#fff;">Abdul</span><br/>
+          <span style="color:#fff;">Azim</span><br/>
+          <span class="shimmer-text">Khan</span>
+        </h1>
+
+        <div class="flex items-center gap-3 mb-6">
+          <span style="font-family:'JetBrains Mono',monospace;color:#aa33ff;font-size:14px;">&gt;</span>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:clamp(14px,2vw,18px);color:#dd99ff;" id="typewriter"></p>
+          <span class="cursor-blink" style="font-family:'JetBrains Mono',monospace;color:#aa33ff;font-size:18px;">|</span>
+        </div>
+
+        <p style="color:rgba(240,230,255,0.6);font-size:16px;line-height:1.8;max-width:480px;margin-bottom:40px;">
+          CS graduate specializing in Data Analytics from Asia Pacific University. I build intelligent systems, full-stack applications, and data-driven solutions that create real impact.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="#projects"><button class="btn-primary">View My Work →</button></a>
+          <a href="#contact"><button class="btn-outline">Let's Connect</button></a>
+        </div>
+
+        <!-- Quick stats -->
+        <div class="flex gap-8 mt-12 pt-8" style="border-top:1px solid rgba(170,51,255,0.15);">
+          <div>
+            <p style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#aa33ff;">5+</p>
+            <p style="font-size:12px;color:rgba(240,230,255,0.5);margin-top:2px;">Projects Built</p>
+          </div>
+          <div>
+            <p style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#aa33ff;">87%</p>
+            <p style="font-size:12px;color:rgba(240,230,255,0.5);margin-top:2px;">ML Accuracy</p>
+          </div>
+          <div>
+            <p style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#aa33ff;">6+</p>
+            <p style="font-size:12px;color:rgba(240,230,255,0.5);margin-top:2px;">Technologies</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — 3D Avatar card -->
+      <div class="flex justify-center lg:justify-end" style="animation:fadeInUp 0.8s 0.3s ease both;">
+        <div style="position:relative;width:380px;height:460px;">
+          <!-- Main card -->
+          <div style="
+            width:100%;height:100%;
+            background:linear-gradient(135deg,rgba(34,0,51,0.9),rgba(22,0,32,0.95));
+            border-radius:24px;
+            border:1px solid rgba(170,51,255,0.35);
+            box-shadow:0 0 80px rgba(136,0,221,0.3),0 40px 80px rgba(0,0,0,0.5);
+            display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+            position:relative;overflow:hidden;
+            animation:glowPulse 3s ease-in-out infinite;
+          ">
+            <!-- Top bar -->
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6600aa,#aa33ff,#dd99ff,#aa33ff,#6600aa);background-size:200%;animation:shimmer 3s linear infinite;"></div>
+
+            <!-- Avatar circle -->
+            <div style="
+              width:120px;height:120px;border-radius:50%;
+              background:linear-gradient(135deg,#6600aa,#aa33ff);
+              display:flex;align-items:center;justify-content:center;
+              box-shadow:0 0 40px rgba(136,0,221,0.6);
+              position:relative;overflow:hidden;
+            ">
+              <img
+                src="assets/Gemini_Generated_Image_pb0kj2pb0kj2pb0k.png"
+                style="width:100%;height:100%;object-fit:cover;border-radius:50%;position:absolute;inset:0;"
+              />
+              <div style="position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(170,51,255,0.4);animation:spin 8s linear infinite;border-top-color:#aa33ff;z-index:1;"></div>
+            </div>
+            <div style="text-align:center;">
+              <p style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff;">ABDUL AZIM KHAN</p>
+            </div>
+
+            <!-- Roles badges -->
+            <div class="flex flex-wrap justify-center gap-2 px-6">
+              <span class="tag">Data Scientist</span>
+              <span class="tag">Full-Stack Dev</span>
+              <span class="tag">ML Engineer</span>
+              <span class="tag">Spring Boot & Java</span>
+            </div>
+
+            <!-- Location -->
+            <div class="flex items-center gap-2">
+              <span style="font-size:14px;">📍</span>
+              <span style="font-size:13px;color:rgba(240,230,255,0.6);">Kuala Lumpur, Malaysia</span>
+            </div>
+
+            <!-- GitHub link -->
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="
+              background:rgba(136,0,221,0.15);border:1px solid rgba(170,51,255,0.3);
+              color:#dd99ff;padding:10px 24px;border-radius:8px;
+              font-size:13px;font-family:'JetBrains Mono',monospace;
+              text-decoration:none;transition:all 0.3s;
+              display:flex;align-items:center;gap:8px;
+            " onmouseover="this.style.background='rgba(136,0,221,0.35)'" onmouseout="this.style.background='rgba(136,0,221,0.15)'">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              abdulazimkhan26
+            </a>
+
+            <a href="https://www.linkedin.com/in/abdulazimkhan01" target="_blank" style="
+              background:rgba(136,0,221,0.15);border:1px solid rgba(170,51,255,0.3);
+              color:#dd99ff;padding:10px 24px;border-radius:8px;
+              font-size:13px;font-family:'JetBrains Mono',monospace;
+              text-decoration:none;transition:all 0.3s;
+              display:flex;align-items:center;gap:8px;
+            " onmouseover="this.style.background='rgba(136,0,221,0.35)'" onmouseout="this.style.background='rgba(136,0,221,0.15)'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+              abdulazimkhan01
+            </a>
+            
+
+            <!-- Bottom decorative line -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(170,51,255,0.5),transparent);"></div>
+          </div>
+
+          <!-- Floating accent squares -->
+          <div style="position:absolute;top:-20px;right:-20px;width:60px;height:60px;border:1px solid rgba(170,51,255,0.3);border-radius:12px;animation:float 5s ease-in-out infinite;"></div>
+          <div style="position:absolute;bottom:-15px;left:-15px;width:40px;height:40px;border:1px solid rgba(136,0,221,0.4);border-radius:8px;animation:float 7s ease-in-out 2s infinite;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.5;">
+      <span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#aa33ff;letter-spacing:2px;">SCROLL</span>
+      <div style="width:1px;height:40px;background:linear-gradient(#aa33ff,transparent);animation:pulse 2s infinite;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-32 relative" style="z-index:1;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal">
+      <div class="flex items-center gap-4 mb-16">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8800dd;">//</span>
+        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:800;color:#fff;">About <span class="shimmer-text">Me</span></h2>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(170,51,255,0.4),transparent);"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p style="font-size:17px;line-height:1.9;color:rgba(240,230,255,0.75);margin-bottom:20px;">
+            I'm a <span style="color:#aa33ff;font-weight:600;">Computer Science graduate</span> from Asia Pacific University, specializing in Data Analytics. My passion lives at the intersection of data science and software engineering — building systems that are both intelligent and robust.
+          </p>
+          <p style="font-size:17px;line-height:1.9;color:rgba(240,230,255,0.75);margin-bottom:20px;">
+            At Probyte Solutions, I engineered full-stack HRMS, Visitor Management, and Payroll systems using <span style="color:#aa33ff;font-weight:600;">C#/ASP.NET, PostgreSQL, and Python</span>. Currently building a microservices HRMS with <span style="color:#aa33ff;font-weight:600;">Spring Boot 3 + Next.js 14</span> as my flagship portfolio project.
+          </p>
+          <p style="font-size:17px;line-height:1.9;color:rgba(240,230,255,0.75);">
+            My deep learning pothole detection system achieved <span style="color:#aa33ff;font-weight:600;">87% accuracy</span> using YOLO & Detectron2, and I've worked across Java, C#, Python, Rust, and Dart — because the best engineers are language-agnostic problem solvers.
+          </p>
+
+          <div class="flex flex-wrap gap-3 mt-8">
+            <span class="tag">APU Graduate</span>
+            <span class="tag">Data Analytics</span>
+            <span class="tag">Open to Work</span>
+            <span class="tag">KL, Malaysia</span>
+          </div>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="stat-card">
+            <div style="font-size:32px;margin-bottom:8px;">🎓</div>
+            <p style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#aa33ff;">CS + Data Analytics</p>
+            <p style="font-size:13px;color:rgba(240,230,255,0.5);margin-top:4px;">Asia Pacific University</p>
+          </div>
+          <div class="stat-card">
+            <div style="font-size:32px;margin-bottom:8px;">💼</div>
+            <p style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#aa33ff;">Probyte Solutions</p>
+            <p style="font-size:13px;color:rgba(240,230,255,0.5);margin-top:4px;">Internship Completed</p>
+          </div>
+          <div class="stat-card">
+            <div style="font-size:32px;margin-bottom:8px;">🤖</div>
+            <p style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#aa33ff;">87% Accuracy</p>
+            <p style="font-size:13px;color:rgba(240,230,255,0.5);margin-top:4px;">YOLO/Detectron2 FYP</p>
+          </div>
+          <div class="stat-card">
+            <div style="font-size:32px;margin-bottom:8px;">🎯</div>
+            <p style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#aa33ff;">Junior Dev</p>
+            <p style="font-size:13px;color:rgba(240,230,255,0.5);margin-top:4px;">Java / Spring Boot Focus</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-32 relative" style="z-index:1;background:linear-gradient(180deg,transparent,rgba(136,0,221,0.05),transparent);">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal">
+      <div class="flex items-center gap-4 mb-16">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8800dd;">//</span>
+        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:800;color:#fff;">Tech <span class="shimmer-text">Stack</span></h2>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(170,51,255,0.4),transparent);"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Skill bars left -->
+        <div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#dd99ff;margin-bottom:24px;">Core Languages</h3>
+          <div id="skillBars" class="space-y-5"></div>
+        </div>
+
+        <!-- Tech categories right -->
+        <div class="space-y-6">
+          <div>
+            <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#dd99ff;margin-bottom:12px;">Backend</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Spring Boot 3</span><span class="tag">ASP.NET</span><span class="tag">REST APIs</span><span class="tag">JWT Auth</span><span class="tag">Microservices</span><span class="tag">JPA/Hibernate</span>
+            </div>
+          </div>
+          <div>
+            <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#dd99ff;margin-bottom:12px;">Frontend</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Next.js 14</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">Flutter</span>
+            </div>
+          </div>
+          <div>
+            <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#dd99ff;margin-bottom:12px;">Data & ML</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Python</span><span class="tag">YOLO</span><span class="tag">Detectron2</span><span class="tag">NLP</span><span class="tag">Deep Learning</span><span class="tag">Data Analytics</span>
+            </div>
+          </div>
+          <div>
+            <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#dd99ff;margin-bottom:12px;">Databases & Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">PostgreSQL</span><span class="tag">Git/GitHub</span><span class="tag">Docker</span><span class="tag">Feign Client</span><span class="tag">RBAC</span>
+            </div>
+          </div>
+          <div>
+            <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#dd99ff;margin-bottom:12px;">Other Languages</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Rust</span><span class="tag">Dart</span><span class="tag">SQL</span><span class="tag">HTML/CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-32 relative" style="z-index:1;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal">
+      <div class="flex items-center gap-4 mb-16">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8800dd;">//</span>
+        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:800;color:#fff;">Featured <span class="shimmer-text">Projects</span></h2>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(170,51,255,0.4),transparent);"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Project 1 — HRMS -->
+        <div class="project-card p-6 lg:col-span-2">
+          <div class="flex items-start justify-between mb-4">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#6600aa,#aa33ff);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🏢</div>
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:#aa33ff;font-size:20px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0)'">↗</a>
+          </div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;">HRMS Microservices Platform</h3>
+          <p style="font-size:14px;line-height:1.7;color:rgba(240,230,255,0.6);margin-bottom:16px;">Full-stack HR Management System with microservices architecture. Features employee CRUD, RBAC, JWT auth, and a Next.js 14 dashboard. Built with Spring Boot 3, PostgreSQL, and 20-table ERD schema.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Spring Boot 3</span><span class="tag">Next.js 14</span><span class="tag">PostgreSQL</span><span class="tag">JWT</span><span class="tag">Microservices</span><span class="tag">TypeScript</span>
+          </div>
+          <div class="flex items-center gap-4 mt-4 pt-4" style="border-top:1px solid rgba(170,51,255,0.15);">
+            <span style="font-size:12px;color:#44ff88;font-family:'JetBrains Mono',monospace;">● Active Development</span>
+          </div>
+        </div>
+
+        <!-- Project 2 — Pothole Detection -->
+        <div class="project-card p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#3d0066,#8800dd);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🔍</div>
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:#aa33ff;font-size:20px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0)'">↗</a>
+          </div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">Pothole Detection AI</h3>
+          <p style="font-size:14px;line-height:1.7;color:rgba(240,230,255,0.6);margin-bottom:16px;">Deep learning system achieving <strong style="color:#aa33ff;">87% accuracy</strong> using YOLO & Detectron2. Final year project for intelligent road infrastructure monitoring.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">YOLO</span><span class="tag">Detectron2</span><span class="tag">Python</span><span class="tag">Deep Learning</span>
+          </div>
+          <div class="flex items-center gap-4 mt-4 pt-4" style="border-top:1px solid rgba(170,51,255,0.15);">
+            <span style="font-size:12px;color:#aa33ff;font-family:'JetBrains Mono',monospace;">● Final Year Project</span>
+          </div>
+        </div>
+
+        <!-- Project 3 — ikiBUS -->
+        <div class="project-card p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#3d0066,#8800dd);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🚌</div>
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:#aa33ff;font-size:20px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0)'">↗</a>
+          </div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">ikiBUS — Bus Booking App</h3>
+          <p style="font-size:14px;line-height:1.7;color:rgba(240,230,255,0.6);margin-bottom:16px;">Premium dark-mode web prototype with seat selection and booking flows. Single-file HTML/CSS/JS targeting the Malaysian transit market.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">HTML/CSS/JS</span><span class="tag">UX Design</span><span class="tag">Malaysia</span>
+          </div>
+        </div>
+
+        <!-- Project 4 — Airport Simulation -->
+        <div class="project-card p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#3d0066,#8800dd);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">✈️</div>
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:#aa33ff;font-size:20px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0)'">↗</a>
+          </div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">Airport Simulation</h3>
+          <p style="font-size:14px;line-height:1.7;color:rgba(240,230,255,0.6);margin-bottom:16px;">Java concurrent simulation of airport operations demonstrating multi-threading, synchronization, and real-time resource management patterns.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Java</span><span class="tag">Concurrency</span><span class="tag">Multithreading</span>
+          </div>
+        </div>
+
+        <!-- Project 5 — NLP Classifier -->
+        <div class="project-card p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#3d0066,#8800dd);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🧠</div>
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:#aa33ff;font-size:20px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0)'">↗</a>
+          </div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">NLP Text Classifier</h3>
+          <p style="font-size:14px;line-height:1.7;color:rgba(240,230,255,0.6);margin-bottom:16px;">Natural Language Processing classifier for automated text categorization. Demonstrates ML pipeline from preprocessing to model evaluation.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Python</span><span class="tag">NLP</span><span class="tag">ML Pipeline</span>
+          </div>
+        </div>
+
+        <!-- Project 6 — Rust Embedded -->
+        <div class="project-card p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#3d0066,#8800dd);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">⚙️</div>
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:#aa33ff;font-size:20px;text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform='rotate(0)'">↗</a>
+          </div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">Rust Embedded Systems</h3>
+          <p style="font-size:14px;line-height:1.7;color:rgba(240,230,255,0.6);margin-bottom:16px;">Low-level systems programming in Rust for embedded applications. Showcases memory-safe systems design without garbage collection.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag">Rust</span><span class="tag">Embedded</span><span class="tag">Systems</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="https://github.com/abdulazimkhan26" target="_blank">
+          <button class="btn-outline">View All on GitHub ↗</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="py-32 relative" style="z-index:1;background:linear-gradient(180deg,transparent,rgba(136,0,221,0.05),transparent);">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="reveal">
+      <div class="flex items-center gap-4 mb-16">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8800dd;">//</span>
+        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:800;color:#fff;">Experience & <span class="shimmer-text">Education</span></h2>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(170,51,255,0.4),transparent);"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Experience -->
+        <div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#dd99ff;margin-bottom:24px;display:flex;align-items:center;gap-8px;">
+            <span style="margin-right:10px;">💼</span> Work Experience
+          </h3>
+          <div style="position:relative;padding-left:28px;border-left:1px solid rgba(170,51,255,0.3);">
+            <!-- Job 1 -->
+            <div style="position:relative;margin-bottom:40px;">
+              <div class="timeline-dot" style="position:absolute;left:-35px;top:4px;"></div>
+              <div class="neon-border p-6 rounded-xl" style="background:rgba(22,0,32,0.8);transition:all 0.3s;">
+                <div class="flex items-start justify-between flex-wrap gap-2 mb-3">
+                  <h4 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;">Software Developer Intern</h4>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#aa33ff;background:rgba(136,0,221,0.15);padding:4px 10px;border-radius:6px;">2024</span>
+                </div>
+                <p style="color:#aa33ff;font-size:14px;font-weight:600;margin-bottom:12px;">Probyte Solutions Sdn Bhd</p>
+                <ul style="font-size:14px;color:rgba(240,230,255,0.65);line-height:1.8;list-style:none;padding:0;">
+                  <li style="margin-bottom:6px;">→ Built HRMS, Visitor Management & Payroll systems</li>
+                  <li style="margin-bottom:6px;">→ Stack: C#/ASP.NET, PostgreSQL, Python</li>
+                  <li>→ Full-stack end-to-end feature development</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#dd99ff;margin-bottom:24px;">
+            <span style="margin-right:10px;">🎓</span> Education
+          </h3>
+          <div style="position:relative;padding-left:28px;border-left:1px solid rgba(170,51,255,0.3);">
+            <div style="position:relative;margin-bottom:40px;">
+              <div class="timeline-dot" style="position:absolute;left:-35px;top:4px;"></div>
+              <div class="neon-border p-6 rounded-xl" style="background:rgba(22,0,32,0.8);transition:all 0.3s;">
+                <div class="flex items-start justify-between flex-wrap gap-2 mb-3">
+                  <h4 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;">B.Sc. Computer Science</h4>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#aa33ff;background:rgba(136,0,221,0.15);padding:4px 10px;border-radius:6px;">2024</span>
+                </div>
+                <p style="color:#aa33ff;font-size:14px;font-weight:600;margin-bottom:12px;">Asia Pacific University (APU)</p>
+                <ul style="font-size:14px;color:rgba(240,230,255,0.65);line-height:1.8;list-style:none;padding:0;">
+                  <li style="margin-bottom:6px;">→ Specialization: Data Analytics</li>
+                  <li style="margin-bottom:6px;">→ FYP: Pothole Detection (YOLO/Detectron2)</li>
+                  <li>→ Kuala Lumpur, Malaysia</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Currently targeting -->
+          <div class="neon-border p-6 rounded-xl" style="background:linear-gradient(135deg,rgba(136,0,221,0.1),rgba(34,0,51,0.8));">
+            <p style="font-size:13px;color:#aa33ff;font-family:'JetBrains Mono',monospace;margin-bottom:8px;">// Currently Targeting</p>
+            <h4 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">Junior Java Developer</h4>
+            <p style="font-size:14px;color:rgba(240,230,255,0.6);">Open to Java/Spring Boot roles. Also experienced in C#/.NET and Python. Based in KL, open to hybrid/remote.</p>
+            <div class="flex gap-2 mt-4 flex-wrap">
+              <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">KL/Remote</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-32 relative" style="z-index:1;">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="reveal">
+      <div class="flex items-center gap-4 mb-16">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8800dd;">//</span>
+        <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:800;color:#fff;">Get In <span class="shimmer-text">Touch</span></h2>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(170,51,255,0.4),transparent);"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:16px;">Let's Build Something Great</h3>
+          <p style="font-size:16px;line-height:1.8;color:rgba(240,230,255,0.6);margin-bottom:32px;">
+            I'm actively looking for junior developer opportunities — Java/Spring Boot roles especially. Reach out if you're hiring, collaborating, or just want to connect!
+          </p>
+          <div class="space-y-4">
+            <a href="https://github.com/abdulazimkhan26" target="_blank" style="display:flex;align-items:center;gap-12px;padding:16px;background:rgba(22,0,32,0.8);border:1px solid rgba(170,51,255,0.2);border-radius:12px;text-decoration:none;transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(170,51,255,0.5)'" onmouseout="this.style.borderColor='rgba(170,51,255,0.2)'">
+              <svg width="24" height="24" fill="#aa33ff" viewBox="0 0 24 24" style="flex-shrink:0;margin-right:12px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              <div>
+                <p style="color:#fff;font-weight:600;font-size:15px;">GitHub</p>
+                <p style="color:rgba(240,230,255,0.5);font-size:13px;">abdulazimkhan26</p>
+              </div>
+            </a>
+            <div style="display:flex;align-items:center;gap-12px;padding:16px;background:rgba(22,0,32,0.8);border:1px solid rgba(170,51,255,0.2);border-radius:12px;">
+              <span style="font-size:24px;margin-right:12px;">📍</span>
+              <div>
+                <p style="color:#fff;font-weight:600;font-size:15px;">Location</p>
+                <p style="color:rgba(240,230,255,0.5);font-size:13px;">Kuala Lumpur, Malaysia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="neon-border p-8 rounded-2xl" style="background:rgba(22,0,32,0.8);">
+          <div class="space-y-4">
+            <div>
+              <label style="font-size:13px;color:#dd99ff;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:8px;">Your Name</label>
+              <input class="contact-input" type="text" placeholder="John Doe"/>
+            </div>
+            <div>
+              <label style="font-size:13px;color:#dd99ff;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:8px;">Email Address</label>
+              <input class="contact-input" type="email" placeholder="john@example.com"/>
+            </div>
+            <div>
+              <label style="font-size:13px;color:#dd99ff;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:8px;">Subject</label>
+              <input class="contact-input" type="text" placeholder="Job Opportunity / Collaboration"/>
+            </div>
+            <div>
+              <label style="font-size:13px;color:#dd99ff;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:8px;">Message</label>
+              <textarea class="contact-input" rows="4" placeholder="Let's build something amazing together..."></textarea>
+            </div>
+            <button class="btn-primary w-full" style="width:100%;">Send Message →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(170,51,255,0.15);padding:40px 24px;text-align:center;position:relative;z-index:1;">
+  <div class="max-w-6xl mx-auto">
+    <p style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:8px;">
+      <span class="shimmer-text">Abdul Azim Khan</span>
+    </p>
+    <p style="font-size:13px;color:rgba(240,230,255,0.4);font-family:'JetBrains Mono',monospace;">Data Scientist & Software Developer · KL, Malaysia</p>
+    <div class="flex justify-center gap-6 mt-6">
+      <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:rgba(221,153,255,0.5);font-size:13px;text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='#aa33ff'" onmouseout="this.style.color='rgba(221,153,255,0.5)'">GitHub</a>
+      <span style="color:rgba(170,51,255,0.3);">·</span>
+      <a href="#home" style="color:rgba(221,153,255,0.5);font-size:13px;text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='#aa33ff'" onmouseout="this.style.color='rgba(221,153,255,0.5)'">Back to Top ↑</a>
+    </div>
+    <p style="font-size:12px;color:rgba(240,230,255,0.2);margin-top:16px;">© 2025 Abdul Azim Khan bin Mohamed Kudus. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// Cursor glow
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+// Typewriter
+const phrases = ['Data Scientist', 'Java Developer', 'Full-Stack Engineer', 'ML Enthusiast', 'Spring Boot Dev'];
+let phraseIdx = 0, charIdx = 0, deleting = false;
+const tw = document.getElementById('typewriter');
+function type() {
+  const phrase = phrases[phraseIdx];
+  if (!deleting) {
+    tw.textContent = phrase.substring(0, charIdx + 1);
+    charIdx++;
+    if (charIdx === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+  } else {
+    tw.textContent = phrase.substring(0, charIdx - 1);
+    charIdx--;
+    if (charIdx === 0) { deleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; }
+  }
+  setTimeout(type, deleting ? 60 : 90);
+}
+type();
+
+// Particles
+const pContainer = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  const size = Math.random() * 3 + 1;
+  p.style.cssText = `
+    position:absolute;width:${size}px;height:${size}px;border-radius:50%;
+    background:rgba(${Math.random() > 0.5 ? '170,51,255' : '136,0,221'},${Math.random() * 0.6 + 0.2});
+    left:${Math.random() * 100}%;top:${Math.random() * 100}%;
+    --dur:${Math.random() * 8 + 4}s;--delay:${Math.random() * 4}s;
+    animation:float var(--dur) ease-in-out var(--delay) infinite;
+  `;
+  pContainer.appendChild(p);
+}
+
+// Skill bars
+const skills = [
+  { name: 'Java / Spring Boot', level: 90 },
+  { name: 'C# / ASP.NET', level: 85 },
+  { name: 'Python', level: 90 },
+  { name: 'SQL / PostgreSQL', level: 95 },
+  { name: 'JavaScript / TypeScript', level: 72 },
+];
+const sb = document.getElementById('skillBars');
+skills.forEach(s => {
+  sb.innerHTML += `
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:14px;color:rgba(240,230,255,0.85);font-weight:500;">${s.name}</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#aa33ff;">${s.level}%</span>
+      </div>
+      <div style="height:6px;background:rgba(136,0,221,0.15);border-radius:99px;overflow:hidden;border:1px solid rgba(170,51,255,0.15);">
+        <div class="skill-fill" data-level="${s.level}" style="width:0;"></div>
+      </div>
+    </div>`;
+});
+
+// Scroll reveal + skill bars animation
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.dataset.level + '%';
+      });
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav active highlight
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
