@@ -797,7 +797,7 @@ I'm a <span style="color:#aa33ff;font-weight:600;">AI Software Engineer</span> s
                 <p style="color:rgba(240,230,255,0.5);font-size:13px;">abdulazimkhan26</p>
               </div>
             </a>
-<div style="display:flex;align-items:center;gap-12px;padding:16px;background:rgba(22,0,32,0.8);border:1px solid rgba(170,51,255,0.2);border-radius:12px;">
+            <div style="display:flex;align-items:center;gap-12px;padding:16px;background:rgba(22,0,32,0.8);border:1px solid rgba(170,51,255,0.2);border-radius:12px;">
               <span style="font-size:24px;margin-right:12px;">📍</span>
               <div>
                 <p style="color:#fff;font-weight:600;font-size:15px;">Location</p>
@@ -805,7 +805,7 @@ I'm a <span style="color:#aa33ff;font-weight:600;">AI Software Engineer</span> s
               </div>
             </div>
             
-            <a href="mailto:aakstackdev@gmail.com">
+            <a href="mailto:aakstackdev@gmail.com" class="space-y-4>
             <div style="display:flex;align-items:center;gap-12px;padding:16px;background:rgba(22,0,32,0.8);border:1px solid rgba(170,51,255,0.2);border-radius:12px;">
               <span style="font-size:24px;margin-right:12px;">✉️</span>
               <div>
@@ -814,6 +814,7 @@ I'm a <span style="color:#aa33ff;font-weight:600;">AI Software Engineer</span> s
               </div>
             </div>   
             </a>
+            
           </div>
         </div>
 
@@ -848,19 +849,21 @@ I'm a <span style="color:#aa33ff;font-weight:600;">AI Software Engineer</span> s
 <footer style="border-top:1px solid rgba(170,51,255,0.15);padding:40px 24px;text-align:center;position:relative;z-index:1;">
   <div class="max-w-6xl mx-auto">
     <p style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:8px;">
-      <span class="shimmer-text">Abdul Azim Khan</span>
+      <span class="shimmer-text">ABDUL AZIM KHAN</span>
     </p>
-    <p style="font-size:13px;color:rgba(240,230,255,0.4);font-family:'JetBrains Mono',monospace;">Data Scientist & Software Developer · KL, Malaysia</p>
+    <p style="font-size:13px;color:rgba(240,230,255,0.4);font-family:'JetBrains Mono',monospace;">Data Scientist & AI Software Engineer · KL, Malaysia</p>
     <div class="flex justify-center gap-6 mt-6">
       <a href="https://github.com/abdulazimkhan26" target="_blank" style="color:rgba(221,153,255,0.5);font-size:13px;text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='#aa33ff'" onmouseout="this.style.color='rgba(221,153,255,0.5)'">GitHub</a>
       <span style="color:rgba(170,51,255,0.3);">·</span>
       <a href="#home" style="color:rgba(221,153,255,0.5);font-size:13px;text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='#aa33ff'" onmouseout="this.style.color='rgba(221,153,255,0.5)'">Back to Top ↑</a>
     </div>
-    <p style="font-size:12px;color:rgba(240,230,255,0.2);margin-top:16px;">© 2025 Abdul Azim Khan bin Mohamed Kudus. All rights reserved.</p>
+      <p style="font-size:12px;color:rgba(240,230,255,0.2);margin-top:16px;">© <span id="copyright-year"></span> Abdul Azim Khan. All rights reserved.</p>
   </div>
 </footer>
 
 <script>
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
 let menuOpen = false;
 function toggleMenu() {
   menuOpen = !menuOpen;
