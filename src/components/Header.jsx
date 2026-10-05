@@ -44,8 +44,7 @@ export default function Header() {
     <>
       <header className="hud">
         <a className="brand" href="#top" aria-label="Abdul Azim Khan, back to top">
-          <span className="brand-mark">AAK</span>
-          <span className="brand-name">AAKSTACK</span>
+
         </a>
         <nav className="nav" aria-label="Sections">
           {navLinks.map(([id, label]) => (
