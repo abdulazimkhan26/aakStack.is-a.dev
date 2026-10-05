@@ -94,7 +94,7 @@ function ContactForm() {
       <div className="row2">
         {field('name', 'Your name', { type: 'text', autoComplete: 'name', placeholder: 'Jane Tan' })}
         {field('email', 'Email address', { type: 'email', autoComplete: 'email', placeholder: 'jane@company.com' })}
-        {field('email', 'Mobile', { type: 'mobile', placeholder: '+60123456789' })}
+        {field('mobile', 'Mobile', { type: 'mobile', placeholder: '+60123456789' })}
       </div>
       {field('subject', 'Subject', { type: 'text', placeholder: 'Job opportunity, collaboration, automation project' })}
       {field('message', 'Message', { placeholder: "Tell me what you're building." }, 'textarea')}
