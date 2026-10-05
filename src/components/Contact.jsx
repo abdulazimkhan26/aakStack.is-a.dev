@@ -58,18 +58,17 @@ function ContactForm() {
 
     setSending(true);
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${EMAIL}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ name: data.name, email: data.email, _subject: 'Portfolio: ' + data.subject, message: data.message, _template: 'table', _captcha: 'false' }),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (res.ok && String(json.success) === 'true') {
-        setStatus({ kind: 'ok', text: `Message sent. I'll reply to ${data.email}.` });
-        setValues(empty);
-      } else {
-        throw new Error(json.message || 'Request failed');
-      }
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: data.name, email: data.email, subject: data.subject, message: data.message }),
+    });
+    const json = await res.json().catch(() => ({}));
+    if (res.ok && json.success) {
+            setStatus({ kind: 'ok', text: `Message sent. I'll reply to ${data.email}.` });
+    } else {
+      throw new Error(json.message || 'Request failed');
+    }
     } catch {
       setStatus({ kind: 'bad', text: `The message couldn't be sent from this page. Email me directly at ${EMAIL} and I'll get back to you.` });
     } finally {
