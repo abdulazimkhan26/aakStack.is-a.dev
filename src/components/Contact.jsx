@@ -58,7 +58,7 @@ function ContactForm() {
 
     setSending(true);
     try {
-    const res = await fetch('/api/contact', {
+    const res = await fetch('/api/resend', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: data.name, email: data.email, subject: data.subject, message: data.message }),
