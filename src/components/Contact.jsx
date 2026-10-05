@@ -5,7 +5,7 @@ import { GithubIcon, LinkedinIcon, MailIcon, PinIcon, SendIcon } from './Icons.j
 const checks = {
   name: v => v.length >= 2 || 'Enter your name.',
   email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || 'Enter a valid email address, like jane@company.com.',
-  mobile: v => v.length >= 10 || 'Enter your whatsapp mobile number,
+  mobile: v => v.length >= 10 || 'Enter your whatsapp mobile number',
   subject: v => v.length >= 3 || 'Add a short subject.',
   message: v => v.length >= 10 || 'Write at least a sentence (10 characters).',
 };
