@@ -23,10 +23,10 @@ export default async function handler(req, res) {
     replyTo: email.trim(),
     subject: `Portfolio: ${subject.trim()}`,
     html: `
-      <h3>${esc(name)}</h3>
-      <p><b>Email:</b> ${esc(email)}</p>
-      <p><b>Subject:</b> ${esc(subject)}</p>
-      <p>${esc(message).replace(/\n/g, '<br>')}</p>`,
+      <h3>Name: ${esc(name)}</h3>
+      <p><b>Email: </b> ${esc(email)}</p>
+      <p><b>Subject: </b> ${esc(subject)}</p>
+      <p>Message: ${esc(message).replace(/\n/g, '<br>')}</p>`,
   });
 
   if (error) return res.status(500).json({ success: false, message: 'Send failed' });
