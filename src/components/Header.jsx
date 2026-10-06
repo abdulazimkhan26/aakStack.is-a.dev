@@ -44,7 +44,7 @@ export default function Header() {
     <>
       <header className="hud">
         <a className="brand" href="#top" aria-label="Abdul Azim Khan, back to top">
-          <img src="../assets/logo.jpeg" alt="AAKSTACK" className="nav-logo" />
+          <img src="../../assets/logo.jpeg" alt="AAKSTACK" className="nav-logo" />
 
         </a>
         <nav className="nav" aria-label="Sections">
