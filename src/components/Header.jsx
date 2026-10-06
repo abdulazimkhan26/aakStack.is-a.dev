@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { navLinks, GITHUB } from '../data.js';
 import { GithubIcon } from './Icons.jsx';
+import logo from '../../assets/logo.jpeg';
 
 const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
@@ -44,7 +45,7 @@ export default function Header() {
     <>
       <header className="hud">
         <a className="brand" href="#top" aria-label="Abdul Azim Khan, back to top">
-          <img src="../../assets/logo.jpeg" alt="AAKSTACK" className="nav-logo" />
+          <img src={logo} alt="AAKSTACK" className="nav-logo" />
 
         </a>
         <nav className="nav" aria-label="Sections">
