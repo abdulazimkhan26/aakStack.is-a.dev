@@ -102,8 +102,8 @@ export default function Hero() {
               <div className="planet"><span>AAK</span></div>
               <div className="ring ring-c" />
             </div>
-            <div className="tag tag-1 depth" style={{ '--d': '-18' }}>Lat <b>3.1390° N</b></div>
-            <div className="tag tag-2 depth" style={{ '--d': '-26' }}>Lon <b>101.6869° E</b></div>
+            <div className="tag tag-1 depth" style={{ '--d': '-18' }}>Lat <b>3.0932° N</b></div>
+            <div className="tag tag-2 depth" style={{ '--d': '-26' }}>Lon <b>101.4242° E</b></div>
             <div className="tag tag-3 depth" style={{ '--d': '-12' }}>Status <b>Shipping</b></div>
           </div>
         </div>
