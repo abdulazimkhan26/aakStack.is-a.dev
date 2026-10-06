@@ -44,10 +44,10 @@ export default function Header() {
     <>
       <header className="hud">
         <a className="brand" href="#top" aria-label="Abdul Azim Khan, back to top">
+          <img src="/assets/logo.jpeg" alt="AAKSTACK" className="nav-logo" />
 
         </a>
         <nav className="nav" aria-label="Sections">
-          <img src="/assets/logo.jpeg" alt="AAKSTACK" className="nav-logo" />
           {navLinks.map(([id, label]) => (
             <a key={id} href={`#${id}`} className={cur === id ? 'on' : undefined}>
               {label}
