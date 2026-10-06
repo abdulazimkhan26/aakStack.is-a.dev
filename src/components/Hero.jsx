@@ -76,7 +76,7 @@ export default function Hero() {
         <Ufo />
         <div className="wrap hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow depth" style={{ '--d': '6' }}><span className="pulse" aria-hidden="true" />Available for hire · Kuala Lumpur</p>
+            <p className="eyebrow depth" style={{ '--d': '6' }}><span className="pulse" aria-hidden="true" />Employed Full-Time · Kuala Lumpur</p>
             <h1 className="name depth" style={{ '--d': '14' }}><span>Abdul Azim</span><span className="grad">Khan</span></h1>
             <p className="role depth" style={{ '--d': '9' }}>
               <span className="prompt" aria-hidden="true">{'>'}</span>
