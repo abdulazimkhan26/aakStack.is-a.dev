@@ -386,3 +386,12 @@ span.ch-action{border:0;padding:0}
   .timeline::after{transform:none}
   .ticker-track{animation:none}
 }
+
+.nav-logo {
+  height: 100%;             /* fills the nav height */
+  max-height: 48px;         /* leaves breathing room; adjust to taste */
+  width: auto;              /* keeps the aspect ratio */
+  object-fit: contain;
+  flex-shrink: 0;           /* stops flexbox from squishing it */
+  display: block;
+}
