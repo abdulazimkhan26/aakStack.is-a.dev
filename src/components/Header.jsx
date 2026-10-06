@@ -47,8 +47,11 @@ export default function Header() {
 
         </a>
         <nav className="nav" aria-label="Sections">
+          <img src="/assets/logo.jpeg" alt="AAKSTACK" className="nav-logo" />
           {navLinks.map(([id, label]) => (
-            <a key={id} href={`#${id}`} className={cur === id ? 'on' : undefined}>{label}</a>
+            <a key={id} href={`#${id}`} className={cur === id ? 'on' : undefined}>
+              {label}
+            </a>
           ))}
         </nav>
         <div className="hud-right">
