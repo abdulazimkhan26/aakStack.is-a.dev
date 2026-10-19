@@ -69,6 +69,19 @@ export function Skills() {
   );
 }
 
+function Flow({ items, label }) {
+  return (
+    <div className="flow" role="img" aria-label={label}>
+      {items.map(([name, sub], idx) => (
+        <Fragment key={name}>
+          {idx > 0 && <span className="flow-link" />}
+          <span className="flow-node">{name}<small>{sub}</small></span>
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
 function Project({ p }) {
   return (
     <article className={`panel proj${p.feature ? ' proj-feature' : ''} tilt rv`} style={{ '--i': String(p.i) }}>
@@ -80,24 +93,12 @@ function Project({ p }) {
       </div>
       <h3>{p.title}</h3>
       <p>{p.desc}</p>
-      {p.flow && (
-        <div className="flow" aria-label="Message flow: WhatsApp to n8n to Express API to PostgreSQL to Next.js portal">
-          {p.flow.map(([name, sub], idx) => (
-            <Fragment key={name}>
-              {idx > 0 && <span className="flow-link" />}
-              <span className="flow-node">{name}<small>{sub}</small></span>
-            </Fragment>
-          ))}
-        </div>
-      )}
-      {p.flow1 && (
-        <div className="flow" aria-label="">
-          {p.flow1.map(([name, sub], idx) => (
-            <Fragment key={name}>
-              {idx > 0 && <span className="flow-link" />}
-              <span className="flow-node">{name}<small>{sub}</small></span>
-            </Fragment>
-          ))}
+      {(p.flow || p.flow1) && (
+        <div className="flows">
+          {p.flow && (
+            <Flow items={p.flow} label="Message flow: WhatsApp to n8n to Express API to PostgreSQL to Next.js portal" />
+          )}
+          {p.flow1 && <Flow items={p.flow1} label={p.flow1Label || 'Project flow'} />}
         </div>
       )}
       <ul className="chips">{p.chips.map(c => <li className="chip" key={c}>{c}</li>)}</ul>
