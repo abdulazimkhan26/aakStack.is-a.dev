@@ -63,28 +63,16 @@ export const projects = [
     chips: ['Express', 'Next.js', 'PostgreSQL', 'Keycloak', 'n8n', 'WhatsApp Cloud API', 'RBAC'],
   },
   {
-    i: 3, meta: 'Computer vision · Agritech',
-    title: 'FFB Detection',
-    desc: 'YOLOv8L model that spots fresh fruit bunches in palm estate imagery, built at HSS Propick to support harvest monitoring.',
-    chips: ['YOLOv8L', 'Python', 'Computer vision'],
-  },
-  {
-    i: 4, meta: 'Final-year project', href: GITHUB, label: 'Pothole Detection on GitHub',
+    i: 3, meta: 'Final-year project', href: GITHUB, label: 'Pothole Detection on GitHub',
     title: 'Pothole Detection AI',
     desc: 'Road-damage detection with YOLO and Detectron2 that reached 87% accuracy, aimed at automated road infrastructure monitoring.',
     chips: ['YOLO', 'Detectron2', 'Python'],
   },
   {
-    i: 5, meta: 'Payments', href: `${GITHUB}/pluspay_propick`, label: 'PlusPay ProPick on GitHub',
+    i: 4, meta: 'Payments', href: `${GITHUB}/pluspay_propick`, label: 'PlusPay ProPick on GitHub',
     title: 'PlusPay ProPick',
     desc: 'Payment and order processing service built around clean architecture and reliable transaction handling.',
     chips: ['Java', 'Spring Boot', 'PostgreSQL'],
-  },
-  {
-    i: 6, meta: 'Concurrency', href: GITHUB, label: 'Airport Simulation on GitHub',
-    title: 'Airport Simulation',
-    desc: 'Concurrent Java simulation of airport operations that exercises multithreading, synchronisation and shared-resource management.',
-    chips: ['Java', 'Multithreading'],
   },
 ];
 
