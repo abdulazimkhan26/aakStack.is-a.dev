@@ -49,7 +49,7 @@ export const stacks = [
 
 export const projects = [
     {
-    feature: true, i: 1, status: 'Active development',,
+    feature: true, i: 1, status: 'Active development',
     title: 'Bank Statement Analayser',
     desc: 'Bank Statement Analyser that extracts and analyses bank transaction data, categorises income and expenses, and generates financial summaries to help users track spending patterns and understand their financial health.',
     flow: [['Bank Statement', 'User'], ['Doctr/PyTesseract', 'OCR'], ['Python', 'API'], ['PostgreSQL', 'Transaction HIstory'], ['Next.js', 'Banker']],
