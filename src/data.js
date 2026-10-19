@@ -48,33 +48,40 @@ export const stacks = [
 ];
 
 export const projects = [
+    {
+    feature: true, i: 1, status: 'Active development',,
+    title: 'Bank Statement Analayser',
+    desc: 'Bank Statement Analyser that extracts and analyses bank transaction data, categorises income and expenses, and generates financial summaries to help users track spending patterns and understand their financial health.',
+    flow: [['Bank Statement', 'User'], ['Doctr/PyTesseract', 'OCR'], ['Python', 'API'], ['PostgreSQL', 'Transaction HIstory'], ['Next.js', 'Banker']],
+    chips: ['Python', 'Next.js', 'PostgreSQL'],
+  },
   {
-    feature: true, i: 1, status: 'Active development', href: GITHUB, label: 'Banker Portal on GitHub',
+    feature: true, i: 2, meta: 'AI Application',
     title: 'Banker Portal',
     desc: 'Operations portal for loan agents at Rakyat Fintech. Applicants apply over WhatsApp, n8n routes their messages, and bankers check eligibility, chat with the team and manage cases behind Keycloak role-based access.',
     flow: [['WhatsApp', 'Applicant'], ['n8n', 'Routing'], ['Express', 'API'], ['PostgreSQL', 'Cases'], ['Next.js', 'Banker']],
     chips: ['Express', 'Next.js', 'PostgreSQL', 'Keycloak', 'n8n', 'WhatsApp Cloud API', 'RBAC'],
   },
   {
-    i: 2, meta: 'Computer vision · Agritech',
+    i: 3, meta: 'Computer vision · Agritech',
     title: 'FFB Detection',
     desc: 'YOLOv8L model that spots fresh fruit bunches in palm estate imagery, built at HSS Propick to support harvest monitoring.',
     chips: ['YOLOv8L', 'Python', 'Computer vision'],
   },
   {
-    i: 1, meta: 'Final-year project', href: GITHUB, label: 'Pothole Detection on GitHub',
+    i: 4, meta: 'Final-year project', href: GITHUB, label: 'Pothole Detection on GitHub',
     title: 'Pothole Detection AI',
     desc: 'Road-damage detection with YOLO and Detectron2 that reached 87% accuracy, aimed at automated road infrastructure monitoring.',
     chips: ['YOLO', 'Detectron2', 'Python'],
   },
   {
-    i: 2, meta: 'Payments', href: `${GITHUB}/pluspay_propick`, label: 'PlusPay ProPick on GitHub',
+    i: 5, meta: 'Payments', href: `${GITHUB}/pluspay_propick`, label: 'PlusPay ProPick on GitHub',
     title: 'PlusPay ProPick',
     desc: 'Payment and order processing service built around clean architecture and reliable transaction handling.',
     chips: ['Java', 'Spring Boot', 'PostgreSQL'],
   },
   {
-    i: 3, meta: 'Concurrency', href: GITHUB, label: 'Airport Simulation on GitHub',
+    i: 6, meta: 'Concurrency', href: GITHUB, label: 'Airport Simulation on GitHub',
     title: 'Airport Simulation',
     desc: 'Concurrent Java simulation of airport operations that exercises multithreading, synchronisation and shared-resource management.',
     chips: ['Java', 'Multithreading'],
