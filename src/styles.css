@@ -386,10 +386,63 @@ span.ch-action{border:0;padding:0}
   .timeline::after{transform:none}
   .ticker-track{animation:none}
 }
+/* Place feature card children in their areas */
+.proj-feature .proj-top { grid-area: top; }
+.proj-feature h3        { grid-area: title; }
+.proj-feature > p       { grid-area: desc; max-width: 52ch; }
+.proj-feature .chips    { grid-area: chips; margin-top: 0; padding-top: 0; }
 
+/* Flow becomes a vertical pipeline on the right */
+.proj-feature .flow {
+  grid-area: flow;
+  align-self: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  margin: 0;
+  padding: clamp(16px, 2vw, 24px);
+}
+.proj-feature .flow-node {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+}
+.proj-feature .flow-node small { display: inline; margin: 0; }
+
+/* Vertical animated connector */
+.proj-feature .flow-link {
+  flex: none;
+  align-self: center;
+  width: 2px;
+  height: 22px;
+  min-width: 0;
+  margin: 4px 0;
+  background: repeating-linear-gradient(180deg, var(--cyan-hi) 0 6px, transparent 6px 12px);
+  background-size: 2px 24px;
+  animation: flowY .9s linear infinite;
+}
+@keyframes flowY { to { background-position: 0 24px; } }
+
+/* Tablet */
+@media (max-width: 980px) {
+  .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-feature {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "top" "title" "desc" "flow" "chips";
+  }
+}
 .nav-logo {
   height: 40px;
   width: auto;
+  
   display: block;
   background:transparent;
 }
