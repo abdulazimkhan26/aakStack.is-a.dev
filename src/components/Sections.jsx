@@ -90,6 +90,16 @@ function Project({ p }) {
           ))}
         </div>
       )}
+      {p.flow1 && (
+        <div className="flow" aria-label="">
+          {p.flow1.map(([name, sub], idx) => (
+            <Fragment key={name}>
+              {idx > 0 && <span className="flow-link" />}
+              <span className="flow-node">{name}<small>{sub}</small></span>
+            </Fragment>
+          ))}
+        </div>
+      )}
       <ul className="chips">{p.chips.map(c => <li className="chip" key={c}>{c}</li>)}</ul>
     </article>
   );
