@@ -393,7 +393,7 @@ span.ch-action{border:0;padding:0}
 .proj-feature .chips    { grid-area: chips; margin-top: 0; padding-top: 0; }
 
 /* Flow becomes a vertical pipeline on the right */
-.proj-feature .flow {
+.proj-feature .flow1 {
   grid-area: flow;
   align-self: center;
   flex-direction: column;
