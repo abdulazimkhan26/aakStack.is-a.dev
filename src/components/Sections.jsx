@@ -20,7 +20,7 @@ export function About() {
             <p>Before that I worked at <mark>HSS Propick Technologies</mark> on an HRMS and a <mark>YOLOv8L fresh-fruit-bunch detector</mark> for palm estates. At <mark>Probyte Solutions</mark> I built HRMS, visitor management and payroll systems in C#/ASP.NET, PostgreSQL and Python.</p>
             <p>My final-year project detected potholes with YOLO and Detectron2 at <mark>87% accuracy</mark>. I've shipped in Java, C#, Python, TypeScript, Rust and Dart, and I pick whichever one fits the problem.</p>
           </div>
-          <aside className="panel corners log tilt rv" style={{ '--i': '2' }} aria-label="Quick facts">
+          <aside className="log rv" style={{ '--i': '2' }} aria-label="Quick facts">
             <div className="log-head"><span>Crew file</span><span>AAK-01</span></div>
             <dl>
               {crewFile.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
@@ -41,7 +41,7 @@ export function Skills() {
           The <em>tech stack</em>
         </SecHead>
         <div className="skills-grid">
-          <div className="panel skill-panel tilt rv" style={{ '--i': '1' }}>
+          <div className="skill-panel rv" style={{ '--i': '1' }}>
             <h3>Core languages</h3>
             <div className="bars">
               {bars.map(([name, pct]) => (
@@ -52,7 +52,7 @@ export function Skills() {
               ))}
             </div>
           </div>
-          <div className="panel stack tilt rv" style={{ '--i': '2' }}>
+          <div className="stack rv" style={{ '--i': '2' }}>
             {stacks.map(([title, chips]) => (
               <div key={title}>
                 <h3>{title}</h3>
@@ -81,7 +81,7 @@ function Flow({ items, label }) {
 
 function Project({ p }) {
   return (
-    <article className={`panel proj${p.feature ? ' proj-feature' : ''} tilt rv`} style={{ '--i': String(p.i) }}>
+    <article className={`proj${p.feature ? ' proj-feature' : ''} rv`} style={{ '--i': String(p.i) }}>
       <div className="proj-top">
         {p.status ? <span className="status">{p.status}</span> : <span className="proj-meta">{p.meta}</span>}
         {p.href && (
@@ -110,12 +110,12 @@ export function Projects() {
         <div className="proj-grid">
           {projects.map(p => <Project key={p.title} p={p} />)}
         </div>
-        <div className="panel more rv">
+        <div className="more rv">
           <span className="more-label">Also on GitHub</span>
           {alsoOnGithub.map(([name, href]) => (
             <a key={name} href={href} target="_blank" rel="noopener noreferrer">{name} <ArrowUpRight /></a>
           ))}
-          <a className="btn btn-ghost magnet" href={GITHUB} target="_blank" rel="noopener noreferrer">All repositories</a>
+          <a className="btn btn-ghost" href={GITHUB} target="_blank" rel="noopener noreferrer">All repositories</a>
         </div>
       </div>
     </section>
@@ -132,7 +132,7 @@ export function Experience() {
             <li className="tl-item rv" key={`${t.title}-${t.when}`}>
               <div className="tl-when">{t.now ? <span className="now">{t.when}</span> : t.when}</div>
               <div className="tl-node" aria-hidden="true" />
-              <article className="panel tl-card tilt">
+              <article className="tl-card">
                 <span className="tl-type">{t.type}</span>
                 <h3>{t.title}</h3>
                 <p className="org">{t.org}</p>

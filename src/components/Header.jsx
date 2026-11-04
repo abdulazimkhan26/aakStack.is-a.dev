@@ -69,7 +69,7 @@ export default function Header() {
         </nav>
         <div className="hud-right">
           <Clock />
-          <a className="btn btn-ghost btn-icon magnet" href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+          <a className="btn btn-ghost btn-icon" href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
             <GithubIcon />
           </a>
           <button

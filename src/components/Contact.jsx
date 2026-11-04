@@ -91,7 +91,7 @@ function ContactForm() {
   );
 
   return (
-    <form className="panel corners form rv" id="contactForm" noValidate style={{ '--i': '2' }} onSubmit={onSubmit}>
+    <form className="form rv" id="contactForm" noValidate style={{ '--i': '2' }} onSubmit={onSubmit}>
       <div className="form-head"><span>Transmission</span><span>To: {EMAIL}</span></div>
       <div className="row2">
         {field('name', 'Your name', { type: 'text', autoComplete: 'name', placeholder: 'Jane Tan' })}
@@ -108,7 +108,7 @@ function ContactForm() {
             ? <>The message couldn't be sent from this page. Email me directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a> and I'll get back to you.</>
             : status.text}
         </p>
-        <button className="btn btn-primary magnet" type="submit" disabled={sending}>
+        <button className="btn btn-primary" type="submit" disabled={sending}>
           {sending && <span className="spinner" />}
           <span>{sending ? 'Sending' : 'Send message'}</span>
           <SendIcon />
@@ -129,22 +129,22 @@ export default function Contact() {
           <div className="contact-copy rv" style={{ '--i': '1' }}>
             <p>Hiring, planning an automation project, or want to talk shop about n8n and computer vision? Send a message or reach me on any of these.</p>
             <div className="channels">
-              <div className="panel channel tilt">
+              <div className="channel">
                 <span className="ch-icon"><MailIcon /></span>
                 <span><span className="ch-label">Email</span><span className="ch-value" id="emailText">{EMAIL}</span></span>
                 <CopyEmail />
               </div>
-              <a className="panel channel tilt" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+              <a className="channel" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
                 <span className="ch-icon"><LinkedinIcon /></span>
                 <span><span className="ch-label">LinkedIn</span><span className="ch-value">abdulazimkhan01</span></span>
                 <span className="ch-action">Open <ArrowUpRight /></span>
               </a>
-              <a className="panel channel tilt" href={GITHUB} target="_blank" rel="noopener noreferrer">
+              <a className="channel" href={GITHUB} target="_blank" rel="noopener noreferrer">
                 <span className="ch-icon"><GithubIcon /></span>
                 <span><span className="ch-label">GitHub</span><span className="ch-value">abdulazimkhan26</span></span>
                 <span className="ch-action">Open <ArrowUpRight /></span>
               </a>
-              <div className="panel channel tilt">
+              <div className="channel">
                 <span className="ch-icon"><PinIcon /></span>
                 <span><span className="ch-label">Location</span><span className="ch-value">Kuala Lumpur, Malaysia (GMT+8)</span></span>
               </div>
