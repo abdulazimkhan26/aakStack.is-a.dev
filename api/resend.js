@@ -5,12 +5,17 @@ const TO = 'aakstackdev@gmail.com';
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+const str = v => (typeof v === 'string' ? v : '');
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ success: false, message: 'Method not allowed' });
 
-  const { name = '', email = '', subject = '', message = '' } = req.body || {};
+  const body = req.body || {};
+  const name = str(body.name), email = str(body.email), mobile = str(body.mobile).trim();
+  const subject = str(body.subject), message = str(body.message);
   const valid =
     name.trim().length >= 2 &&
+    (mobile === '' || /^\+?[\d\s()-]{8,16}$/.test(mobile)) &&
     /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim()) &&
     subject.trim().length >= 3 &&
     message.trim().length >= 10 &&
@@ -25,6 +30,7 @@ export default async function handler(req, res) {
     html: `
       <h3>Name: ${esc(name)}</h3>
       <p><b>Email: </b> ${esc(email)}</p>
+      ${mobile ? `<p><b>WhatsApp: </b> ${esc(mobile)}</p>` : ''}
       <p><b>Subject: </b> ${esc(subject)}</p>
       <p>Message: ${esc(message).replace(/\n/g, '<br>')}</p>`,
   });
