@@ -50,12 +50,12 @@ export default function Hero() {
         <div className="wrap">
           <div className="hero-meta">
             <span><i className="live" aria-hidden="true" />Employed full-time</span>
-            <span>Kuala Lumpur · GMT+8</span>
+            <span>Kuala Lumpur, GMT+8</span>
             <span>AI Software Engineer</span>
           </div>
           <h1 className="name" aria-label="Abdul Azim Khan">
             <span className="line"><span>Abdul</span></span>
-            <span className="line"><span>Azim <em>Khan</em></span></span>
+            <span className="line"><span>Azim Khan</span></span>
           </h1>
           <div className="hero-foot">
             <p className="lede">I build <strong>AI chatbots, workflow automation and full-stack products</strong>. Recent work ranges from a WhatsApp loan-application bot running on n8n to YOLO models that find fruit bunches in palm estates.</p>

@@ -44,6 +44,11 @@ export default function Header() {
   const btn = useRef(null);
 
   useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  useEffect(() => {
     if (!open) return;
     const onKey = e => {
       if (e.key !== 'Escape') return;
