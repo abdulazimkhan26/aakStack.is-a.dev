@@ -14,11 +14,12 @@ export default function App() {
 
   return (
     <>
+      <a className="skip" href="#main">Skip to content</a>
       <canvas id="sky" aria-hidden="true" />
       <div className="cursor" id="cursor" aria-hidden="true" />
       <div className="cursor-dot" id="cursorDot" aria-hidden="true" />
       <Header />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <About />
         <Skills />

@@ -48,18 +48,20 @@ export const stacks = [
 ];
 
 export const projects = [
-    {
+  {
     feature: true, i: 1, status: 'Active development',
-    title: 'Bank Statement Analayser',
+    title: 'Bank Statement Analyser',
     desc: 'Bank Statement Analyser that extracts and analyses bank transaction data, categorises income and expenses, and generates financial summaries to help users track spending patterns and understand their financial health.',
-    flow: [['Bank Statement', 'User'], ['Doctr/PyTesseract', 'OCR'], ['Python', 'API'], ['PostgreSQL', 'Transaction HIstory'], ['Next.js', 'Banker']],
+    flowLabel: 'Pipeline: bank statement to OCR to Python API to PostgreSQL to Next.js banker view',
+    flow: [['Bank Statement', 'User'], ['Doctr/PyTesseract', 'OCR'], ['Python', 'API'], ['PostgreSQL', 'Transaction history'], ['Next.js', 'Banker']],
     chips: ['Python', 'Next.js', 'PostgreSQL'],
   },
   {
     feature: true, i: 2, meta: 'AI Application',
     title: 'Banker Portal',
     desc: 'Operations portal for loan agents at Rakyat Fintech. Applicants apply over WhatsApp, n8n routes their messages, and bankers check eligibility, chat with the team and manage cases behind Keycloak role-based access.',
-    flow1: [['WhatsApp', 'Applicant'], ['n8n', 'Routing'], ['Express', 'API'], ['PostgreSQL', 'Cases'], ['Next.js', 'Banker']],
+    flowLabel: 'Message flow: WhatsApp to n8n to Express API to PostgreSQL to Next.js portal',
+    flow: [['WhatsApp', 'Applicant'], ['n8n', 'Routing'], ['Express', 'API'], ['PostgreSQL', 'Cases'], ['Next.js', 'Banker']],
     chips: ['Express', 'Next.js', 'PostgreSQL', 'Keycloak', 'n8n', 'WhatsApp Cloud API', 'RBAC'],
   },
   {
