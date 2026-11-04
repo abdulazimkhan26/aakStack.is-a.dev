@@ -1,4 +1,5 @@
 import { GITHUB, LINKEDIN } from '../data.js';
+import { ArrowUpRight } from './Icons.jsx';
 
 export default function Footer() {
   return (
@@ -10,7 +11,7 @@ export default function Footer() {
           <nav aria-label="Footer">
             <a href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="#top">Back to top ↑</a>
+            <a href="#top">Back to top <ArrowUpRight className="icon-up" /></a>
           </nav>
         </div>
       </div>

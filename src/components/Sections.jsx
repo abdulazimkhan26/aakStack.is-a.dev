@@ -2,21 +2,18 @@ import { Fragment } from 'react';
 import { alsoOnGithub, bars, crewFile, GITHUB, projects, stacks, timeline } from '../data.js';
 import { ArrowUpRight } from './Icons.jsx';
 
-const SecHead = ({ kicker, children, note }) => (
+const SecHead = ({ id, children, note }) => (
   <div className="sec-head rv">
-    <div>
-      <p className="kicker">{kicker}</p>
-      <h2>{children}</h2>
-    </div>
+    <h2 id={id}>{children}</h2>
     {note && <p className="sec-note">{note}</p>}
   </div>
 );
 
 export function About() {
   return (
-    <section className="section" id="about">
+    <section className="section" id="about" aria-labelledby="about-h">
       <div className="wrap">
-        <SecHead kicker="About">Where machine learning <em>meets product</em></SecHead>
+        <SecHead id="about-h">Where machine learning <em>meets product</em></SecHead>
         <div className="about-grid">
           <div className="about-copy rv" style={{ '--i': '1' }}>
             <p>I'm an AI software engineer at Rakyat Fintech. I build the chatbots that talk to customers on WhatsApp, the n8n pipelines that move their data, and the web apps bankers use to act on it.</p>
@@ -38,9 +35,9 @@ export function About() {
 
 export function Skills() {
   return (
-    <section className="section" id="skills">
+    <section className="section" id="skills" aria-labelledby="skills-h">
       <div className="wrap">
-        <SecHead kicker="Skills" note="Comfortable across the whole path: database schema, API, automation layer and the interface on top.">
+        <SecHead id="skills-h" note="Comfortable across the whole path: database schema, API, automation layer and the interface on top.">
           The <em>tech stack</em>
         </SecHead>
         <div className="skills-grid">
@@ -93,12 +90,9 @@ function Project({ p }) {
       </div>
       <h3>{p.title}</h3>
       <p>{p.desc}</p>
-      {(p.flow || p.flow1) && (
+      {p.flow && (
         <div className="flows">
-          {p.flow && (
-            <Flow items={p.flow} label="Message flow: WhatsApp to n8n to Express API to PostgreSQL to Next.js portal" />
-          )}
-          {p.flow1 && <Flow items={p.flow1} label={p.flow1Label || 'Project flow'} />}
+          <Flow items={p.flow} label={p.flowLabel || 'Project flow'} />
         </div>
       )}
       <ul className="chips">{p.chips.map(c => <li className="chip" key={c}>{c}</li>)}</ul>
@@ -108,9 +102,9 @@ function Project({ p }) {
 
 export function Projects() {
   return (
-    <section className="section" id="projects">
+    <section className="section" id="projects" aria-labelledby="projects-h">
       <div className="wrap">
-        <SecHead kicker="Projects" note="From production fintech tooling to research models. Source for most of these is on GitHub.">
+        <SecHead id="projects-h" note="From production fintech tooling to research models. Source for most of these is on GitHub.">
           Things I've <em>built</em>
         </SecHead>
         <div className="proj-grid">
@@ -130,9 +124,9 @@ export function Projects() {
 
 export function Experience() {
   return (
-    <section className="section" id="experience">
+    <section className="section" id="experience" aria-labelledby="experience-h">
       <div className="wrap">
-        <SecHead kicker="Experience" note="Work and education, most recent first.">Flight <em>log</em></SecHead>
+        <SecHead id="experience-h" note="Work and education, most recent first.">Flight <em>log</em></SecHead>
         <ol className="timeline" id="timeline">
           {timeline.map(t => (
             <li className="tl-item rv" key={`${t.title}-${t.when}`}>

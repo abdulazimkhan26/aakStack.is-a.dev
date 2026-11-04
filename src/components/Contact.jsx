@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { EMAIL, GITHUB, LINKEDIN } from '../data.js';
-import { GithubIcon, LinkedinIcon, MailIcon, PinIcon, SendIcon } from './Icons.jsx';
+import { ArrowUpRight, GithubIcon, LinkedinIcon, MailIcon, PinIcon, SendIcon } from './Icons.jsx';
 
 const checks = {
   name: v => v.length >= 2 || 'Enter your name.',
   email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || 'Enter a valid email address, like jane@company.com.',
-  mobile: v => v.length >= 10 || 'Enter your whatsapp mobile number',
+  mobile: v => v === '' || /^\+?[\d\s()-]{8,16}$/.test(v) || 'Enter a number like +60123456789, or leave this blank.',
   subject: v => v.length >= 3 || 'Add a short subject.',
   message: v => v.length >= 10 || 'Write at least a sentence (10 characters).',
 };
-const empty = { name: '', email: '', subject: '', message: '' };
+const empty = { name: '', email: '', mobile: '', subject: '', message: '' };
 
 function CopyEmail() {
   const [label, setLabel] = useState('Copy');
@@ -62,16 +62,18 @@ function ContactForm() {
     const res = await fetch('/api/resend', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: data.name, email: data.email, subject: data.subject, message: data.message }),
+      body: JSON.stringify(data),
     });
     const json = await res.json().catch(() => ({}));
     if (res.ok && json.success) {
-            setStatus({ kind: 'ok', text: `Message sent. I'll reply to ${data.email}.` });
+      setStatus({ kind: 'ok', text: `Message sent. I'll reply to ${data.email}.` });
+      setValues(empty);
+      setErrors({});
     } else {
       throw new Error(json.message || 'Request failed');
     }
     } catch {
-      setStatus({ kind: 'bad', text: `The message couldn't be sent from this page. Email me directly at ${EMAIL} and I'll get back to you.` });
+      setStatus({ kind: 'bad', text: '' });
     } finally {
       setSending(false);
     }
@@ -94,12 +96,18 @@ function ContactForm() {
       <div className="row2">
         {field('name', 'Your name', { type: 'text', autoComplete: 'name', placeholder: 'Jane Tan' })}
         {field('email', 'Email address', { type: 'email', autoComplete: 'email', placeholder: 'jane@company.com' })}
-        {field('mobile', 'Mobile', { type: 'mobile', placeholder: '+60123456789' })}
       </div>
-      {field('subject', 'Subject', { type: 'text', placeholder: 'Job opportunity, collaboration, automation project' })}
+      <div className="row2">
+        {field('mobile', 'WhatsApp (optional)', { type: 'tel', inputMode: 'tel', autoComplete: 'tel', placeholder: '+60123456789' })}
+        {field('subject', 'Subject', { type: 'text', placeholder: 'Job opportunity, collaboration' })}
+      </div>
       {field('message', 'Message', { placeholder: "Tell me what you're building." }, 'textarea')}
       <div className="form-foot">
-        <p className={`form-status${status.kind ? ' ' + status.kind : ''}`} role="status" aria-live="polite">{status.text}</p>
+        <p className={`form-status${status.kind ? ' ' + status.kind : ''}`} role="status" aria-live="polite">
+          {status.kind === 'bad'
+            ? <>The message couldn't be sent from this page. Email me directly at <a href={`mailto:${EMAIL}`}>{EMAIL}</a> and I'll get back to you.</>
+            : status.text}
+        </p>
         <button className="btn btn-primary magnet" type="submit" disabled={sending}>
           {sending && <span className="spinner" />}
           <span>{sending ? 'Sending' : 'Send message'}</span>
@@ -112,13 +120,10 @@ function ContactForm() {
 
 export default function Contact() {
   return (
-    <section className="section" id="contact">
+    <section className="section" id="contact" aria-labelledby="contact-h">
       <div className="wrap">
         <div className="sec-head rv">
-          <div>
-            <p className="kicker">Contact</p>
-            <h2>Let's build <em>something</em></h2>
-          </div>
+          <h2 id="contact-h">Let's build <em>something</em></h2>
         </div>
         <div className="contact-grid">
           <div className="contact-copy rv" style={{ '--i': '1' }}>
@@ -132,12 +137,12 @@ export default function Contact() {
               <a className="panel channel tilt" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
                 <span className="ch-icon"><LinkedinIcon /></span>
                 <span><span className="ch-label">LinkedIn</span><span className="ch-value">abdulazimkhan01</span></span>
-                <span className="ch-action">Open ↗</span>
+                <span className="ch-action">Open <ArrowUpRight /></span>
               </a>
               <a className="panel channel tilt" href={GITHUB} target="_blank" rel="noopener noreferrer">
                 <span className="ch-icon"><GithubIcon /></span>
                 <span><span className="ch-label">GitHub</span><span className="ch-value">abdulazimkhan26</span></span>
-                <span className="ch-action">Open ↗</span>
+                <span className="ch-action">Open <ArrowUpRight /></span>
               </a>
               <div className="panel channel tilt">
                 <span className="ch-icon"><PinIcon /></span>

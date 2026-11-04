@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { phrases, stats, tickerItems } from '../data.js';
 import { ArrowUpRight } from './Icons.jsx';
 
-const prefersReduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prefersReduce = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function Typewriter() {
   const [text, setText] = useState(phrases[0]);
@@ -27,9 +27,9 @@ function Typewriter() {
 }
 
 function CountUp({ end, suffix }) {
-  const [v, setV] = useState(end);
+  const [v, setV] = useState(() => (prefersReduce() ? end : 0));
   useEffect(() => {
-    if (prefersReduce()) return;
+    if (prefersReduce()) { setV(end); return; }
     let raf;
     const t0 = performance.now(), dur = 1500;
     const step = now => {
